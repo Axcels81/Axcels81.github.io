@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmad Hadi Sahab — Web Developer</title>
+<meta name="description" content="Ahmad Hadi Sahab, web developer berlatar belakang Sistem Informasi Universitas Mulawarman. Profil, skill, proyek, sertifikat, dan kontak.">
+<script>
+  // Dijalankan di <head> agar tema tersimpan langsung dipakai, tanpa kedip.
+  try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Font pixel hanya untuk judul & label; isi teks memakai font yang mudah dibaca. -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* Palet terinspirasi "Sweetie 16" (palet pixel art populer) */
+  :root {
+    --bg:#1a1c2c; --panel:#262b44; --line:#94b0c2; --shadow:#0b0c14;
+    --text:#f4f4f4; --muted:#b4c4d0; --accent:#ffcd75; --link:#73eff7; --ok:#a7f070;
+    --pixel:"Press Start 2P", monospace; --sans:"IBM Plex Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: light) { :root:not([data-theme=dark]) { --bg:#f4f4f4; --panel:#fff; --line:#1a1c2c; --shadow:#1a1c2c; --text:#1a1c2c; --muted:#3f4a63; --accent:#b13e53; --link:#29366f; --ok:#257179; } }
+  :root[data-theme=light] { --bg:#f4f4f4; --panel:#fff; --line:#1a1c2c; --shadow:#1a1c2c; --text:#1a1c2c; --muted:#3f4a63; --accent:#b13e53; --link:#29366f; --ok:#257179; }
+
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--bg); color:var(--text);
+    font:17px/1.7 var(--sans);
+    /* grid titik halus ala layar pixel */
+    background-image:radial-gradient(color-mix(in srgb, var(--line) 18%, transparent) 1px, transparent 1px);
+    background-size:16px 16px;
+  }
+  a { color:var(--link); text-underline-offset:3px; }
+  :focus-visible { outline:3px dashed var(--accent); outline-offset:3px; }
+  main { max-width:1040px; margin:auto; padding:40px 16px 0; }
+  section { scroll-margin-top:84px; padding:48px 0; }
+
+  /* Judul: font pixel, ukuran kecil agar tetap terbaca */
+  h1, h2, h3, .pixel { font-family:var(--pixel); font-weight:400; letter-spacing:.02em; line-height:1.5; }
+  h1 { font-size:clamp(1.25rem, 4vw, 2rem); margin:0 0 12px; }
+  h2 { font-size:1rem; margin:0 0 24px; color:var(--accent); }
+  h2::before { content:attr(data-no) " "; color:var(--muted); }
+  h3 { font-size:.8rem; margin:0 0 12px; }
+
+  /* Panel pixel: sudut tegas + bayangan keras tanpa blur */
+  .panel { background:var(--panel); border:3px solid var(--line); box-shadow:6px 6px 0 var(--shadow); padding:24px; }
+  .btn {
+    display:inline-block; font:.7rem/1 var(--pixel); text-decoration:none; color:var(--bg); background:var(--accent);
+    border:3px solid var(--line); box-shadow:4px 4px 0 var(--shadow); padding:14px 16px; cursor:pointer;
+  }
+  .btn.alt { background:var(--panel); color:var(--text); }
+  .btn:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--shadow); }
+  .btn:active { transform:translate(4px,4px); box-shadow:0 0 0 var(--shadow); }
+
+  /* Headbar */
+  nav { position:sticky; top:0; z-index:2; background:var(--bg); border-bottom:3px solid var(--line); }
+  nav > div { max-width:1040px; margin:auto; padding:12px 16px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; }
+  nav .brand { font:.7rem var(--pixel); color:var(--text); text-decoration:none; }
+  nav .menu { min-width:0; display:flex; gap:22px; overflow-x:auto; white-space:nowrap; }
+  nav .menu a { font:.62rem/2.2 var(--pixel); color:var(--text); text-decoration:none; }
+  nav .menu a:hover { color:var(--accent); }
+  nav .menu a:hover::before { content:"▶"; margin-right:4px; }
+  #theme { justify-self:end; font:.62rem var(--pixel); padding:10px 12px; }
+  @media (max-width:760px) { nav .brand { display:none; } nav > div { grid-template-columns:1fr auto; } }
+
+  /* Hero / About */
+  .hero { display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start; }
+  .eyebrow { font:.65rem var(--pixel); color:var(--ok); margin:0 0 16px; }
+  .role { font:600 1.1rem var(--sans); color:var(--muted); margin:0 0 24px; }
+  .cursor { display:inline-block; width:.6em; height:1em; background:var(--accent); vertical-align:-.1em; margin-left:6px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  @media (prefers-reduced-motion:reduce) { .cursor { animation:none; } html { scroll-behavior:auto; } .btn:hover { transform:none; } }
+  .actions { display:flex; flex-wrap:wrap; gap:14px; margin:28px 0 0; }
+
+  /* Kartu biodata ala "character sheet" — jawaban cepat untuk pengunjung yang hanya memindai */
+  .sheet img { display:block; width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; border:3px solid var(--line); margin-bottom:20px; }
+  .sheet dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:10px 14px; font:.95rem/1.5 var(--mono); }
+  .sheet dt { font:.55rem/2.2 var(--pixel); color:var(--muted); }
+  .sheet dd { margin:0; }
+
+  .about-text { margin-top:48px; display:grid; grid-template-columns:1.4fr 1fr; gap:40px; }
+  .about-text p { margin:0 0 16px; max-width:65ch; }
+  .note { border-left:6px solid var(--ok); }
+  .note .pixel { font-size:.6rem; color:var(--ok); margin:0 0 10px; }
+  .note p { margin:0; }
+
+  @media (max-width:760px) {
+    .hero, .about-text { grid-template-columns:1fr; }
+    .sheet img { max-width:220px; }
+  }
+
+  /* Skills */
+  .skills { display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none; }
+  .chips li { font:.9rem var(--mono); border:2px solid var(--line); padding:4px 10px; display:inline-flex; align-items:center; gap:8px; }
+  .chips svg { height:16px; width:auto; color:var(--link); shape-rendering:crispEdges; }
+
+  /* Proyek & sertifikat */
+  .grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); }
+  .card { display:flex; flex-direction:column; }
+  .card p { margin:0 0 16px; color:var(--muted); flex:1; }
+  .card img { display:block; width:calc(100% + 48px); margin:-24px -24px 20px; aspect-ratio:16/10; object-fit:cover; object-position:top; border-bottom:3px solid var(--line); }
+  .card .meta { font:.85rem var(--mono); color:var(--ok); }
+  .sub { font:.7rem var(--pixel); color:var(--muted); margin:40px 0 20px; }
+  .hint { color:var(--muted); margin:-12px 0 24px; max-width:65ch; }
+
+  /* Kontak */
+  .contact { text-align:center; }
+  .contact p { max-width:55ch; margin:0 auto 24px; }
+  .contact .actions { justify-content:center; }
+
+  footer { border-top:3px solid var(--line); margin-top:48px; padding:24px 16px; text-align:center; font:.85rem var(--mono); color:var(--muted); }
+</style>
+</head>
+<body>
+<nav aria-label="Navigasi utama">
+  <div>
+    <a class="brand" href="#about">AHMAD.H.S</a>
+    <div class="menu">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button id="theme" class="btn alt" type="button"></button>
+  </div>
+</nav>
+
+<main>
+  <!-- 01 ABOUT: urutan informasi = yang paling dicari pengunjung (siapa, apa, latar belakang) muncul lebih dulu -->
+  <section id="about" aria-labelledby="name">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">&gt; PLAYER 1 READY</p>
+        <h1 id="name">Ahmad Hadi Sahab<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="role">Web Developer · Sistem Informasi, Universitas Mulawarman</p>
+        <p>Pengembangan web yang didorong oleh rasa ingin tahu tinggi terhadap teknologi. Berlatar belakang dari Program Studi Sistem Informasi Universitas Mulawarman, saya senang menerjemahkan rasa penasaran tersebut ke dalam berbagai proyek aplikasi yang fungsional, terstruktur, dan solutif.</p>
+        <div class="actions">
+          <a class="btn" href="#projects">Lihat Proyek</a>
+          <a class="btn alt" href="#contact">Hubungi Saya</a>
+          <!-- Aktifkan setelah cv.pdf diunggah ke repo: <a class="btn alt" href="cv.pdf" download>Unduh CV</a> -->
+        </div>
+      </div>
+
+      <aside class="sheet panel" aria-label="Biodata singkat">
+        <img src="foto.jpg" alt="Foto Ahmad Hadi Sahab" width="800" height="1200">
+        <dl>
+          <dt>NAMA</dt><dd>Ahmad Hadi Sahab</dd>
+          <dt>PERAN</dt><dd>Web Developer</dd>
+          <dt>STUDI</dt><dd>Sistem Informasi, Universitas Mulawarman</dd>
+          <dt>FOKUS</dt><dd>Antarmuka web interaktif, manajemen data terintegrasi, UI/UX</dd>
+          <dt>GITHUB</dt><dd><a href="https://github.com/Axcels81">@Axcels81</a></dd>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="about-text">
+      <p>Bagi saya, dunia teknologi tidak pernah berhenti bergerak. Oleh karena itu, saya selalu berkomitmen untuk terus mengeksplorasi teknologi baru dan mengasah keterampilan teknis guna menghadirkan solusi digital yang relevan dengan perkembangan zaman.</p>
+      <div class="note panel">
+        <p class="pixel">★ SEDANG DIKERJAKAN</p>
+        <p>Saat ini, saya banyak bereksplorasi dalam pengembangan antarmuka web interaktif, manajemen data terintegrasi, serta optimasi UI/UX.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 SKILLS: dikelompokkan per kategori, tanpa persentase/bar karena angka seperti itu tidak bisa diukur akurat -->
+  <section id="skills">
+    <h2 data-no="02">Skills</h2>
+    <!-- data-icon menunjuk ke ikon pixel di ICONS (script di bawah) -->
+    <div class="skills">
+      <div class="panel">
+        <h3>Frontend &amp; Mobile</h3>
+        <ul class="chips">
+          <li data-icon="tag">HTML</li><li data-icon="brush">CSS</li>
+          <li data-icon="braces">JavaScript</li><li data-icon="phone">React Native</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Backend &amp; Data</h3>
+        <ul class="chips">
+          <li data-icon="server">PHP</li><li data-icon="terminal">Python</li><li data-icon="db">SQL</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Desain &amp; Tools</h3>
+        <ul class="chips">
+          <li data-icon="pen">Figma</li><li data-icon="branch">Git</li><li data-icon="editor">VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 data-no="03">Projects</h2>
+    <p class="hint">Setiap kartu menjelaskan masalah yang diselesaikan, peran saya, dan teknologi yang dipakai.</p>
+    <div class="grid" id="featured"></div>
+    <p class="sub">// Repositori GitHub</p>
+    <div class="grid" id="repos"><p>Memuat…</p></div>
+  </section>
+
+  <section id="certificates">
+    <h2 data-no="04">Certificates</h2>
+    <div class="grid">
+      <!-- Salin blok ini untuk tiap sertifikat -->
+      <article class="card panel">
+        <h3>Nama Sertifikat</h3>
+        <p>Penerbit (mis. Dicoding, Coursera)</p>
+        <span class="meta">2026 · <a href="#" target="_blank" rel="noopener">Lihat kredensial</a></span>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 data-no="05">Contact</h2>
+    <div class="panel">
+      <p>Tertarik berdiskusi atau bekerja sama? Silakan hubungi saya lewat salah satu kanal berikut.</p>
+      <div class="actions">
+        <a class="btn" href="mailto:email-kamu@contoh.com">Email</a>
+        <a class="btn alt" href="https://linkedin.com/in/username-kamu" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn alt" href="https://github.com/Axcels81" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Ahmad Hadi Sahab · Di-host di GitHub Pages</footer>
+
+<script>
+// Edit daftar ini untuk proyek pilihanmu. Format tetap (masalah → peran → teknologi) agar mudah dipahami pembaca.
+const FEATURED = [
+  {
+    title: "Tiket Pesawat Online",
+    desc: "Aplikasi pemesanan tiket pesawat: cari jadwal, pesan sekali jalan/pulang-pergi, bayar via transfer, dan e-tiket. Admin mengelola pesawat, bandara, jadwal, dan pesanan.",
+    role: "Peran: Fullstack", tech: "Laravel 8 · PHP · MySQL · Bootstrap",
+    url: "https://github.com/Axcels81/tiket-pesawat-online",
+    // img: "img/tiket-pesawat.png", // aktifkan setelah screenshot diunggah ke folder img/ di repo portofolio
+  },
+  { title: "Nama Proyek 2", desc: "Deskripsi singkat proyek kedua.", role: "Peran: Fullstack", tech: "Python · SQL", url: "https://github.com/Axcels81" },
+];
+const USER = "Axcels81";
+
+function card({ title, desc, role, tech, url, img }) {
+  const el = document.createElement("article");
+  el.className = "card panel";
+  if (img) { const i = el.appendChild(document.createElement("img")); i.src = img; i.alt = "Tampilan " + title; i.loading = "lazy"; }
+  // textContent, bukan innerHTML: deskripsi repo berasal dari luar.
+  const h = el.appendChild(document.createElement("h3"));
+  const a = h.appendChild(document.createElement("a"));
+  a.href = url; a.textContent = title; a.target = "_blank"; a.rel = "noopener";
+  el.appendChild(document.createElement("p")).textContent = desc || "Tanpa deskripsi.";
+  const meta = [role, tech].filter(Boolean).join(" · ");
+  if (meta) { const t = el.appendChild(document.createElement("span")); t.className = "meta"; t.textContent = meta; }
+  return el;
+}
+
+document.getElementById("featured").append(...FEATURED.map(card));
+
+// Ikon pixel orisinal (bukan logo resmi): tiap "#" = 1 pixel. Ubah gambar cukup dengan mengedit barisnya.
+const ICONS = {
+  tag:      ["..#...#.#..", ".#....#..#.", "#....#....#", ".#..#....#.", "..#.#...#.."],
+  brush:    ["......###", ".....####", "....####.", "...##....", "..##.....", ".##......", "##......."],
+  braces:   ["..##...##..", ".#.......#.", ".#.......#.", "#....#....#", ".#.......#.", ".#.......#.", "..##...##.."],
+  phone:    ["#######", "#.....#", "#.....#", "#.....#", "#.....#", "#.....#", "#######", "#..#..#", "#######"],
+  server:   ["#########", "#.......#", "#.##..#.#", "#.......#", "#########", "#.......#", "#.##..#.#", "#.......#", "#########"],
+  terminal: ["#########", "#.......#", "#.#.....#", "#..#....#", "#.#..##.#", "#.......#", "#########"],
+  db:       [".#####.", "#.....#", "#######", "#.....#", "#######", "#.....#", ".#####."],
+  pen:      ["....#....", "...###...", "..#.#.#..", ".#..#..#.", ".#.....#.", "..#...#..", "...###...", "...###..."],
+  branch:   [".#...#.", "###.###", ".#...#.", ".#..#..", ".#.#...", ".##....", ".#.....", "###....", ".#....."],
+  editor:   ["#########", "#########", "#.......#", "#.###...#", "#...###.#", "#.##....#", "#.......#", "#########"],
+};
+const pixelSvg = rows => {
+  const w = rows[0].length;
+  let rects = "";
+  rows.forEach((r, y) => [...r].forEach((c, x) => { if (c === "#") rects += `<rect x="${x}" y="${y}" width="1" height="1"/>`; }));
+  return `<svg viewBox="0 0 ${w} ${rows.length}" fill="currentColor" aria-hidden="true">${rects}</svg>`;
+};
+document.querySelectorAll("[data-icon]").forEach(li => li.insertAdjacentHTML("afterbegin", pixelSvg(ICONS[li.dataset.icon])));
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Toggle tema: tanpa pilihan tersimpan, ikut setelan sistem.
+const themeBtn = document.getElementById("theme");
+const isDark = () => (document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")) === "dark";
+const syncIcon = () => {
+  themeBtn.textContent = isDark() ? "☀ TERANG" : "☾ GELAP";
+  themeBtn.setAttribute("aria-label", isDark() ? "Ganti ke mode terang" : "Ganti ke mode gelap");
+};
+themeBtn.onclick = () => {
+  const t = isDark() ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("theme", t); } catch {}
+  syncIcon();
+};
+syncIcon();
+
+// Repo publik otomatis muncul di sini. shortcut: API tanpa login dibatasi 60 request/jam per pengunjung, cukup untuk portofolio pribadi.
+const box = document.getElementById("repos");
+fetch(`https://api.github.com/users/${USER}/repos?sort=updated&per_page=100`)
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(repos => {
+    const list = repos.filter(r => !r.fork && r.name.toLowerCase() !== `${USER}.github.io`.toLowerCase());
+    box.replaceChildren(...list.map(r => card({
+      title: r.name, desc: r.description, url: r.homepage || r.html_url,
+      tech: [r.language, r.stargazers_count ? `★ ${r.stargazers_count}` : ""].filter(Boolean).join(" · "),
+    })));
+    if (!list.length) box.innerHTML = '<p>Belum ada repositori publik.</p>';
+  })
+  .catch(() => { box.innerHTML = `<p>Gagal memuat repositori. <a href="https://github.com/${USER}?tab=repositories">Lihat di GitHub</a>.</p>`; });
+</script>
+</body>
+</html>
